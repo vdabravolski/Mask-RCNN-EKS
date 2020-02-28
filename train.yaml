@@ -1,11 +1,11 @@
 apiVersion: sagemaker.aws.amazon.com/v1
 kind: TrainingJob
 metadata:
-  name: maskrcnn-with-metric
+  name: maskrcnn-with-metric # add unique job name
 spec:
     hyperParameters: [] 
     algorithmSpecification:
-        trainingImage: 578276202366.dkr.ecr.us-east-1.amazonaws.com/mask-rcnn-tensorpack-sagemaker:tf1.13-tp26664c3
+        trainingImage: <AWS account>.dkr.ecr.<AWS region>.amazonaws.com/mask-rcnn-tensorpack-sagemaker:tf1.13-tp26664c3 # add your image URI
         trainingInputMode: File
         metricDefinitions:
         - name: "maskrcnn_loss/accuracy"
@@ -55,9 +55,9 @@ spec:
         - name: "mAP(segm)/small"
           regex: ".*mAP\\(segm\\)/small:\\s*(\\S+).*"
     roleArn: arn:aws:iam::578276202366:role/GoldenGateSageMaker
-    region: us-east-1
+    region: <AWS Region> # add your region
     outputDataConfig:
-        s3OutputPath: https://s3-us-east-1.amazonaws.com/gautam-mask-rcnn/mask-rcnn/sagemaker/output
+        s3OutputPath: https://<AWS region>.amazonaws.com/<S3 bucket>/mask-rcnn/sagemaker/output # add your S3 bucket and region
     resourceConfig:
         instanceCount: 4
         instanceType: ml.p3.16xlarge
@@ -69,7 +69,7 @@ spec:
           dataSource:
             s3DataSource:
                 s3DataType: S3Prefix
-                s3Uri: https://s3-us-east-1.amazonaws.com/gautam-mask-rcnn/mask-rcnn/sagemaker/input/train/
+                s3Uri: https://<AWS region>.amazonaws.com/<S3 bucket>/mask-rcnn/sagemaker/input/train/ # add your S3 bucket and region
                 s3DataDistributionType: FullyReplicated
           recordWrapperType: None
           compressionType: None
