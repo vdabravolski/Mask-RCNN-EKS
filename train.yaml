@@ -1,0 +1,75 @@
+apiVersion: sagemaker.aws.amazon.com/v1
+kind: TrainingJob
+metadata:
+  name: maskrcnn-with-metric
+spec:
+    hyperParameters: [] 
+    algorithmSpecification:
+        trainingImage: 578276202366.dkr.ecr.us-east-1.amazonaws.com/mask-rcnn-tensorpack-sagemaker:tf1.13-tp26664c3
+        trainingInputMode: File
+        metricDefinitions:
+        - name: "maskrcnn_loss/accuracy"
+          regex: ".*maskrcnn_loss/accuracy:\\s*(\\S+).*"
+        - name: "fastrcnn_losses/box_loss"
+          regex: ".*fastrcnn_losses/box_loss:\\s*(\\S+).*"
+        - name: "fastrcnn_losses/label_loss"
+          regex: ".*fastrcnn_losses/label_loss:\\s*(\\S+).*"
+        - name: "fastrcnn_losses/label_metrics/accuracy"
+          regex: ".*fastrcnn_losses/label_metrics/accuracy:\\s*(\\S+).*"
+        - name: "fastrcnn_losses/label_metrics/false_negative"
+          regex: ".*fastrcnn_losses/label_metrics/false_negative:\\s*(\\S+).*"
+        - name: "fastrcnn_losses/label_metrics/fg_accuracy"
+          regex: ".*fastrcnn_losses/label_metrics/fg_accuracy:\\s*(\\S+).*"
+        - name: "fastrcnn_losses/num_fg_label"
+          regex: ".*fastrcnn_losses/num_fg_label:\\s*(\\S+).*"
+        - name: "maskrcnn_loss/accuracy"
+          regex: ".*maskrcnn_loss/accuracy:\\s*(\\S+).*"
+        - name: "maskrcnn_loss/fg_pixel_ratio"
+          regex: ".*maskrcnn_loss/fg_pixel_ratio:\\s*(\\S+).*"
+        - name: "maskrcnn_loss/maskrcnn_loss"
+          regex: ".*maskrcnn_loss/maskrcnn_loss:\\s*(\\S+).*"
+        - name: "maskrcnn_loss/pos_accuracy"
+          regex: ".*maskrcnn_loss/pos_accuracy:\\s*(\\S+).*"
+        - name: "mAP(bbox)/IoU=0.5"
+          regex: ".*mAP\\(bbox\\)/IoU=0\\.5:\\s*(\\S+).*"
+        - name: "mAP(bbox)/IoU=0.5:0.95"
+          regex: ".*mAP\\(bbox\\)/IoU=0\\.5:0\\.95:\\s*(\\S+).*"
+        - name: "mAP(bbox)/IoU=0.75"
+          regex: ".*mAP\\(bbox\\)/IoU=0\\.75:\\s*(\\S+).*"
+        - name: "mAP(bbox)/large"
+          regex: ".*mAP\\(bbox\\)/large:\\s*(\\S+).*"
+        - name: "mAP(bbox)/medium"
+          regex: ".*mAP\\(bbox\\)/medium:\\s*(\\S+).*"
+        - name: "mAP(bbox)/small"
+          regex: ".*mAP\\(bbox\\)/small:\\s*(\\S+).*"
+        - name: "mAP(segm)/IoU=0.5"
+          regex: ".*mAP\\(segm\\)/IoU=0\\.5:\\s*(\\S+).*"
+        - name: "mAP(segm)/IoU=0.5:0.95"
+          regex: ".*mAP\\(segm\\)/IoU=0\\.5:0\\.95:\\s*(\\S+).*"
+        - name: "mAP(segm)/IoU=0.75"
+          regex: ".*mAP\\(segm\\)/IoU=0\\.75:\\s*(\\S+).*"
+        - name: "mAP(segm)/large"
+          regex: ".*mAP\\(segm\\)/large:\\s*(\\S+).*"
+        - name: "mAP(segm)/medium"
+          regex: ".*mAP\\(segm\\)/medium:\\s*(\\S+).*"
+        - name: "mAP(segm)/small"
+          regex: ".*mAP\\(segm\\)/small:\\s*(\\S+).*"
+    roleArn: arn:aws:iam::578276202366:role/GoldenGateSageMaker
+    region: us-east-1
+    outputDataConfig:
+        s3OutputPath: https://s3-us-east-1.amazonaws.com/gautam-mask-rcnn/mask-rcnn/sagemaker/output
+    resourceConfig:
+        instanceCount: 4
+        instanceType: ml.p3.16xlarge
+        volumeSizeInGB: 150
+    stoppingCondition:
+        maxRuntimeInSeconds: 216000
+    inputDataConfig:
+        - channelName: train
+          dataSource:
+            s3DataSource:
+                s3DataType: S3Prefix
+                s3Uri: https://s3-us-east-1.amazonaws.com/gautam-mask-rcnn/mask-rcnn/sagemaker/input/train/
+                s3DataDistributionType: FullyReplicated
+          recordWrapperType: None
+          compressionType: None
