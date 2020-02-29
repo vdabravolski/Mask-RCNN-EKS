@@ -54,7 +54,7 @@ spec:
           regex: ".*mAP\\(segm\\)/medium:\\s*(\\S+).*"
         - name: "mAP(segm)/small"
           regex: ".*mAP\\(segm\\)/small:\\s*(\\S+).*"
-    roleArn: <Sagemaker Role> # add your Sagemaker execution role
+    roleArn: <Sagemaker Role ARN> # add your Sagemaker execution role
     region: <AWS Region> # add your region
     outputDataConfig:
         s3OutputPath: https://<AWS region>.amazonaws.com/<S3 bucket>/mask-rcnn/sagemaker/output # add your S3 bucket and region
