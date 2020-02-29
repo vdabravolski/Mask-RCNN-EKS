@@ -18,7 +18,7 @@ We'll use [TensorPack Mask/Faster-RCNN](https://github.com/tensorpack/tensorpack
 2. Run `./prepare_s3_bucket.sh <YOUR_S3_BUCKET>`. This will upload training dataset to your S3 bucket. 
 3. Run `./build_and_push <YOUR_AWS_REGION>`. This will create Mask R-CNN image with training script and push it to AWS ECR. This operation will take 5-10 minutes to complete. If successful, you should see URI of your image. You'll need it later.
 
-## Training Mask-RCNN model
+## Training Mask R-CNN model
 1. Update `train.yaml` as follows:
 - (optionally) update "name" field with unique value. This will be a name of your Sagemaker training job;
 - update "trainingImage" with URI of your container image (Prepare your envrionment - Step #3);
