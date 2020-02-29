@@ -22,7 +22,7 @@ We'll use [TensorPack Mask/Faster-RCNN](https://github.com/tensorpack/tensorpack
 1. Update `train.yaml` as follows:
 - (optionally) update "name" field with unique value. This will be a name of your Sagemaker training job;
 - update "trainingImage" with URI of your container image (Prepare your envrionment - Step #3);
-- update "roleArn" with your Sagemaker execution role ([reference]);(https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html)
+- update "roleArn" with your Sagemaker execution role ([reference](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html));
 - update "region" with you AWS region;
 - update your "S3OutputPath" and "inputDataPath" with your S3 bucket.
 2. Run `kubectl apply -f maskrcnn.yaml` in terminal. This will schedule the Sagemaker job.
