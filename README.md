@@ -32,7 +32,7 @@ We use [TensorPack Mask/Faster-RCNN](https://github.com/tensorpack/tensorpack/tr
  - "modelName" with name of already trained model;
  - "roleArn" with your Sagemaker execution role ([reference](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html));
 - "modelDataURL" with link to trained model;
-- "image" with image URI in format like <container registry url>/<image>:<version>.
+- "image" with image URI in format like \<container registry url\>\/\<image\>:\<version\>.
 2. Run `kubectl apply -f hosintg.yaml`. This will schedule endpoint creation.
 3. Run `kubectl describe hostingdeployment` or check Sagemaker console for status of endpoint creation.
 
