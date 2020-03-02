@@ -8,13 +8,13 @@ spec:
     - variantName: AllTraffic
       modelName: <Model Name> # name of trained model
       initialInstanceCount: 1
-      instanceType: ml.t2.medium 
+      instanceType: ml.t2.medium # update this parameter as needed.
       initialVariantWeight: 1
   models:
     - name: <Model Name> # name of trained model
       executionRoleArn: <Sagemaker Execution Role> # add role
       containers:
-        - containerHostname: xgboost
-          modelDataUrl: s3://demos-vadimd/sagemaker/DEMO-xgboost/output/demo-job-4/output/model.tar.gz
-          image: 825641698319.dkr.ecr.us-east-2.amazonaws.com/xgboost:1
+        - containerHostname: <container host name> # add your model.
+          modelDataUrl: <model artifacts> # add your model artifcats.
+          image: <container registry url>/<image>:<version> # URI of your container
 
