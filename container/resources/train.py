@@ -133,7 +133,7 @@ def train():
     
     if not is_master:
         print(f'Worker: {current_host}')
-        process_search_term = "python3.6 train.py"
+        process_search_term = "/usr/local/bin/python3.6 /tensorpack/examples/FasterRCNN/train.py"
         wait_for_training_processes_to_appear_and_finish(process_search_term, current_host)
         print(f'Worker {current_host} has completed')
     else:
