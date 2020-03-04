@@ -26,15 +26,14 @@ We use [TensorPack Mask/Faster-RCNN](https://github.com/tensorpack/tensorpack/tr
 5. Monitor your job in Sagemaker console or by running `kubectl describe trainingjob`.
 
 ## Hosting trained model
-1. Update `hosting.yaml` as follows:
- - "name" with unique endpoint name;
- - "region" with you AWS region;
- - "modelName" with name of already trained model;
- - "roleArn" with your Sagemaker execution role ([reference](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html));
-- "modelDataURL" with link to trained model;
-- "image" with image URI in format like \<container registry url\>\/\<image\>:\<version\>.
-2. Run `kubectl apply -f hosintg.yaml`. This will schedule endpoint creation.
-3. Run `kubectl describe hostingdeployment` or check Sagemaker console for status of endpoint creation.
+Work in Progress. Following tasks are pending:
+1. Use separate Sagemaker [TF Serving image](https://github.com/aws/sagemaker-tensorflow-serving-container) for inference. 
+    - Details of deploymnet of TF Serving containers in Sagemaker: https://sagemaker.readthedocs.io/en/stable/using_tf.html#deploy-tensorflow-serving-models 
+2. Export trained Tensorpack model into format compatible with TF Serving container (require update of `train.py`)
+    - Tensorpack has methods to export export to model.pb format: https://github.com/tensorpack/tensorpack/blob/master/examples/basics/export-model.py & https://tensorpack.readthedocs.io/_modules/tensorpack/tfutils/export.html 
+3. Implement Sagemaker-specific code:
+    - handle input and output data of inference request;
+    - test that Tensorpack exported model implements standard [TF Serving interface](https://github.com/tensorflow/serving/blob/master/tensorflow_serving/g3doc/signature_defs.md )
 
 ## Credits
 Mask-RCNN training script and docker image are copied from [this AWS repository](https://github.com/awslabs/amazon-sagemaker-examples/tree/master/advanced_functionality/distributed_tensorflow_mask_rcnn)
